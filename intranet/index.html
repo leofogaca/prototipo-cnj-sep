@@ -59,9 +59,10 @@
     .menu a:hover{background:#f3f4f6}
     .menu a[aria-current="page"]{background:#eef2ff; color:#3b82f6; font-weight:600}
 
-    /* Submenu (Gabinete -> COPI/COAN/LIODS) */
+    /* GSEP com submenu expansível */
     details.menu-group{
       border-radius:10px;
+      margin:2px 0;
     }
     details.menu-group[open] > summary{
       background:#f3f4f6;
@@ -103,7 +104,19 @@
     .section{display:none}
     .section[aria-hidden="false"]{display:block}
 
-    /* Nota/placeholder */
+    /* Destaque de contato (mesmo “clima” do cartão do secretário, sem foto) */
+    .contact-card{
+      background:#f9fafb;
+      border:1px solid #cbd5e1;
+      border-left:5px solid #94a3b8;
+      border-radius:12px;
+      padding:14px 16px;
+      display:grid; gap:4px;
+      margin:12px 0 4px 0;
+    }
+    .contact-card .title{font-weight:800}
+    .contact-card .meta{color:#6b7280; font-size:14px}
+
     .note{background:#f9fafb; border-left:4px solid #cbd5e1; padding:10px 12px; border-radius:6px}
 
     @media (max-width: 960px){
@@ -121,12 +134,9 @@
     <div>
       <div class="badge">Intranet SEP</div>
       <div style="font-weight:700; font-size:18px">Secretaria de Estratégia e Projetos — CNJ</div>
-      <div style="font-size:14px; color:var(--muted)">Conteúdos internos e contatos institucionais</div>
+ 
     </div>
-    <form class="search" role="search" aria-label="Buscar nesta página" onsubmit="event.preventDefault()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/></svg>
-      <input id="q" type="search" placeholder="Buscar (Ctrl+/)" aria-label="Buscar">
-    </form>
+
   </header>
 
   <div class="grid">
@@ -136,12 +146,13 @@
         <ul class="menu">
           <li><a href="#sec-home" data-target="sec-home" aria-current="page">Secretaria de Estratégia e Projetos (Página inicial)</a></li>
 
-          <!-- GSEP com submenu -->
+          <!-- GSEP clicável + submenu expansível -->
           <li>
+            <a href="#sec-gsep" data-target="sec-gsep" id="link-gsep">Gabinete da Secretaria de Estratégia e Projetos (GSEP)</a>
             <details class="menu-group" id="grp-gsep">
               <summary id="sum-gsep" role="button" aria-controls="submenu-gsep" aria-expanded="false">
                 <span class="chev" aria-hidden="true">▶</span>
-                Gabinete da Secretaria de Estratégia e Projetos (GSEP)
+                Mostrar unidades vinculadas ao Gabinete
               </summary>
               <ul id="submenu-gsep" class="submenu" role="group" aria-labelledby="sum-gsep">
                 <li><a href="#sec-copi" data-target="sec-copi">Coordenadoria de Gestão de Projetos e de Instrumentos de Cooperação (COPI)</a></li>
@@ -182,17 +193,27 @@
           <li>Departamento de Gestão Estratégica (DGE)</li>
           <li>Departamento de Acompanhamento Orçamentário (DAO)</li>
         </ul>
+<br>
+        <div class="contact-card" role="note" aria-label="Contato da SEP">
+          <div class="title">Secretaria de Estratégia e Projetos — SEP</div>
+          <div class="meta">Conselho Nacional de Justiça (CNJ)</div>
+          <div>Telefone: (61) 2326-5274</div>
+          <div>E-mail: <a href="mailto:sep@cnj.jus.br">sep@cnj.jus.br</a></div>
+        </div>
+      </section>
 
-        <h2>Principais competências</h2>
-        <ul>
-          <li>Coordenar o planejamento estratégico do Poder Judiciário e o monitoramento dos indicadores de desempenho;</li>
-          <li>Gerir o portfólio de projetos institucionais e programas estratégicos nacionais, como o Justiça 4.0, o Programa Justiça Itinerante Cooperativa na Amazônia Legal e o RenovaJud;</li>
-          <li>Apoiar a elaboração de relatórios e diagnósticos estratégicos voltados à eficiência e à inovação no sistema de justiça;</li>
-          <li>Fomentar a integração com tribunais e órgãos parceiros para a implementação das metas e políticas do CNJ.</li>
-        </ul>
-
-        <h2>Contato</h2>
-        <p>Telefone: (61) 2326-5274<br>E-mail: <a href="mailto:sep@cnj.jus.br">sep@cnj.jus.br</a></p>
+      <!-- GSEP -->
+      <section id="sec-gsep" class="section" aria-hidden="true">
+        <h1>Gabinete da Secretaria de Estratégia e Projetos (GSEP)</h1>
+        <p>O Gabinete da Secretaria de Estratégia e Projetos (GSEP) é responsável pela coordenação administrativa e pelo apoio técnico direto ao(à) Secretário(a) de Estratégia e Projetos, assegurando a integração entre as unidades vinculadas à Secretaria e o alinhamento das ações com as diretrizes da Presidência do CNJ.</p>
+        <p>Sua estrutura e funcionamento estão definidos na Portaria da Presidência do CNJ nº 326, de 29 de setembro de 2025, que instituiu a nova Estrutura Orgânica do Conselho.</p>
+<br>
+        <div class="contact-card" role="note" aria-label="Contato do Gabinete SEP">
+          <div class="title">Thais Martins Bosh — Assessora-Chefe</div>
+          <div class="meta">Gabinete da Secretaria de Estratégia e Projetos (GSEP)</div>
+          <div>Telefone: (61) 2326-5032</div>
+          <div>E-mail: <a href="mailto:thais.bosch@cnj.jus.br">thais.bosch@cnj.jus.br</a></div>
+        </div>
       </section>
 
       <!-- COPI -->
@@ -206,7 +227,13 @@
           <li>Apoiar tecnicamente a celebração, tramitação e execução de instrumentos de cooperação técnica, convênios e parcerias do CNJ;</li>
           <li>Consolidar informações e relatórios sobre os projetos e instrumentos de cooperação em andamento.</li>
         </ul>
-        <p>A COPI atua como ponto focal de integração entre o CNJ e os órgãos do Poder Judiciário, fortalecendo a governança e a transparência dos projetos estratégicos nacionais.</p>
+<br>
+        <div class="contact-card" role="note" aria-label="Contato da COPI">
+          <div class="title">Thiago Gontijo Vieira — Coordenador</div>
+          <div class="meta">Coordenadoria de Gestão de Projetos e de Instrumentos de Cooperação (COPI)</div>
+          <div>Telefone: (61) 2326-XXXX</div>
+          <div>E-mail: <a href="mailto:thiago.gontijo@cnj.jus.br">thiago.gontijo@cnj.jus.br</a></div>
+        </div>
       </section>
 
       <!-- COAN -->
@@ -218,17 +245,30 @@
           <li>Coordenar a implantação, atualização e integração de sistemas relacionados aos programas e projetos sob a gestão da SEP;</li>
           <li>Acompanhar a execução administrativa e orçamentária das iniciativas da Secretaria;</li>
           <li>Assegurar a conformidade dos processos com as políticas de segurança da informação, integridade e transformação digital do CNJ;</li>
-          <li>Propor aperfeiçoamentos nos fluxos de trabalho e processos internos, de modo a garantir eficiência e rastreabilidade nas ações da Secretaria.</li>
+          <li>Propor aperfeiçoamentos nos fluxos de trabalho e processos internos.</li>
         </ul>
-        <p>A COAN exerce papel essencial na gestão negocial e operacional dos sistemas e plataformas associados aos programas estruturantes conduzidos pela SEP.</p>
+<br>
+        <div class="contact-card" role="note" aria-label="Contato da COAN">
+          <div class="title">Angela Maria dos Santos — Coordenadora</div>
+          <div class="meta">Coordenadoria Administrativa e de Gestão Negocial de Sistemas (COAN)</div>
+          <div>Telefone: (61) 2326-4581</div>
+          <div>E-mail: <a href="mailto:angela.santos@cnj.jus.br">angela.santos@cnj.jus.br</a></div>
+        </div>
       </section>
 
       <!-- LIODS -->
       <section id="sec-liods" class="section" aria-hidden="true">
         <h1>Núcleo do Laboratório de Inovação e Objetivos de Desenvolvimento Sustentável do Conselho Nacional de Justiça – LIODS</h1>
-        <p>O LIODS/CNJ, consolidado pela Resolução CNJ nº 395/2021 e suas atualizações, é o laboratório institucional de inovação e sustentabilidade do Poder Judiciário.</p>
-        <p>Vinculado ao Gabinete da SEP, o núcleo tem como objetivo fomentar a cultura de inovação, colaboração e aprendizado contínuo, com base nos Objetivos de Desenvolvimento Sustentável (ODS) da Agenda 2030 da ONU.</p>
+        <p>O LIODS/CNJ, consolidado pela Resolução CNJ nº 395/2021, é o laboratório institucional de inovação e sustentabilidade do Poder Judiciário.</p>
+        <p>Vinculado ao Gabinete da SEP, o núcleo fomenta a cultura de inovação e a colaboração, alinhado aos ODS da Agenda 2030 da ONU.</p>
         <p><a href="https://www.cnj.jus.br/gestao-da-justica/politicas-judiciarias-nacionais-programaticas/politica-nacional-de-gestao-da-inovacao/liods-cnj/" target="_blank" rel="noopener">Saiba mais sobre o LIODS/CNJ</a></p>
+<br>
+        <div class="contact-card" role="note" aria-label="Contato do LIODS">
+          <div class="title">Elaine Cristina Cestari — Chefe do Núcleo</div>
+          <div class="meta">LIODS/CNJ</div>
+          <div>Telefone: (61) 2326-XXXX</div>
+          <div>E-mail: <a href="mailto:elaine.cestari@cnj.jus.br">elaine.cestari@cnj.jus.br</a></div>
+        </div>
       </section>
 
       <!-- DPJ -->
@@ -278,31 +318,30 @@
       sec.setAttribute('aria-hidden', String(sec.id !== id));
     });
 
-    // Estado ativo em todos os links
+    // Estado ativo em links (nível 1 e submenu)
     document.querySelectorAll('.menu a[aria-current]').forEach(x=>x.removeAttribute('aria-current'));
     const link = document.querySelector(`.menu a[data-target="${id}"]`);
     if(link){ link.setAttribute('aria-current','page'); }
 
-    // Se a seção é COPI/COAN/LIODS, abre o <details> do GSEP
-    const gsep = document.getElementById('grp-gsep');
+    // Abrir/fechar GSEP conforme item
+    const grp = document.getElementById('grp-gsep');
+    const sum = document.getElementById('sum-gsep');
     if(['sec-copi','sec-coan','sec-liods'].includes(id)){
-      if(gsep && !gsep.open){ gsep.open = true; }
-      // marca visualmente o summary como “ativo” quando algum filho estiver ativo
-      document.getElementById('sum-gsep').style.background = '#f3f4f6';
+      if(grp && !grp.open){ grp.open = true; }
+      if(sum){ sum.style.background = '#f3f4f6'; }
     } else {
-      // se outro item foi selecionado, remover destaque do summary (mantendo aberto apenas se o usuário abriu)
-      document.getElementById('sum-gsep').style.background = '';
+      if(sum){ sum.style.background = ''; }
     }
 
     // Breadcrumb
     const bc = document.querySelector('.breadcrumbs');
     if(link && bc){ bc.textContent = 'Intranet SEP / ' + link.textContent; }
 
-    // Foco no h1 da seção (acessibilidade)
+    // Foco no título
     const h1 = document.querySelector('#'+id+' h1');
     if(h1){ h1.setAttribute('tabindex','-1'); h1.focus({preventScroll:false}); }
 
-    // Atualiza hash
+    // Hash
     history.replaceState(null, '', '#'+id);
   }
 
@@ -310,20 +349,20 @@
   document.querySelectorAll('.menu a[data-target]').forEach(a=>{
     a.addEventListener('click', (ev)=>{
       ev.preventDefault();
-      const id = a.getAttribute('data-target');
-      showSection(id);
+      showSection(a.getAttribute('data-target'));
     });
   });
 
-  // Sincroniza aria-expanded no summary
-  const sumGsep = document.getElementById('sum-gsep');
-  if(sumGsep){
-    const grp = document.getElementById('grp-gsep');
-    const sync = ()=> sumGsep.setAttribute('aria-expanded', grp.open ? 'true' : 'false');
+  // Clicar no summary não navega; o link GSEP acima é o responsável por abrir o conteúdo do Gabinete
+  // Sincroniza aria-expanded do summary
+  const grp = document.getElementById('grp-gsep');
+  const sum = document.getElementById('sum-gsep');
+  if(grp && sum){
+    const sync = ()=> sum.setAttribute('aria-expanded', grp.open ? 'true' : 'false');
     grp.addEventListener('toggle', sync); sync();
   }
 
-  // Ao carregar, abre a seção do hash (e expande GSEP se necessário)
+  // Carrega hash inicial
   window.addEventListener('load', ()=>{
     const hash = location.hash.replace('#','') || 'sec-home';
     showSection(hash);
