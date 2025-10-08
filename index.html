@@ -1,172 +1,280 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal da Secretaria de Estratégia e Projetos (SEP)</title>
-    <style>
-        /* Estilos CSS adaptados para a estrutura (similar à imagem) */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .header {
-            background-color: #0b2b4e; /* Cor do cabeçalho fora do container principal */
-            color: white;
-            padding: 10px 30px;
-            font-size: 1.5em;
-            font-weight: bold;
-            display: none; /* Ocultando cabeçalho superior, pois a imagem não o tem explicitamente */
-        }
-        .container {
-            display: flex;
-            max-width: 1200px;
-            margin: 20px auto;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            overflow: hidden; /* Para garantir que sombras ou bordas não vazem */
-        }
-        .sidebar {
-            width: 300px;
-            background-color: #f9f9f9;
-            border-right: 1px solid #ddd;
-        }
-        .sidebar-menu {
-            margin-bottom: 20px;
-        }
-        .menu-header {
-            background-color: #0b2b4e;
-            color: white;
-            padding: 10px 15px;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        .menu-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            background-color: #fff;
-        }
-        .menu-list li a {
-            display: flex;
-            align-items: center;
-            padding: 10px 15px;
-            text-decoration: none;
-            color: #333;
-            border-bottom: 1px solid #eee;
-            transition: background-color 0.2s;
-        }
-        .menu-list li a:hover {
-            background-color: #eee;
-            color: #0b2b4e;
-        }
-        .menu-list li a::before {
-            content: '›';
-            margin-right: 8px;
-            color: #0b2b4e;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        .content {
-            flex-grow: 1;
-            padding: 30px;
-        }
-        .content h1 {
-            color: #0b2b4e;
-            margin-top: 0;
-            font-size: 1.8em;
-        }
-        .content h2 {
-            color: #333;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 5px;
-            margin-top: 30px;
-            font-size: 1.4em;
-        }
-        .content p {
-            line-height: 1.6;
-            margin-bottom: 20px;
-            text-align: justify;
-        }
-        .content ul {
-            padding-left: 20px;
-        }
-        .content ul li {
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-        /* Estilização para o título grande acima do container */
-        .page-title {
-            max-width: 1200px;
-            margin: 20px auto 0;
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #333;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secretaria de Estratégia e Projetos (SEP) — Protótipo</title>
+  <style>
+    /* Variáveis de cor e layout */
+    :root{
+      --bg: #f4f4f4; /* Fundo mais claro */
+      --panel: #ffffff;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --brand: #0b2b4e; /* Azul Escuro do CNJ */
+      --brand-active: #0a6cf1; /* Azul mais claro para links */
+      --focus: #1d4ed8;
+      --radius: 0; /* Bordas retas para simular o portal */
+      --shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family: Arial, sans-serif;
+      color:var(--ink); background:var(--bg);
+      line-height:1.55;
+    }
+    a{color:var(--brand-active); text-decoration:none}
+    a:focus, button:focus{outline:3px solid var(--focus); outline-offset:3px}
+    
+    /* Estrutura Principal */
+    .wrap{max-width:1200px; margin:20px auto; padding:0 20px}
+    .grid{
+      display:grid;
+      grid-template-columns: 300px 1fr;
+      background:var(--panel); box-shadow:var(--shadow);
+    }
+    
+    /* Título Superior (Secretaria-Geral na imagem original) */
+    .page-header{
+      max-width:1200px; margin:0 auto 20px; padding:0 20px;
+      font-size: 1.8em; font-weight: 500; color:var(--ink);
+    }
+    
+    /* Menu Lateral */
+    nav.side{
+      background:#f9f9f9; border-right:1px solid var(--border);
+    }
+    .menu-section{margin-bottom:20px; border-bottom:1px solid #ddd}
+    .menu-header{
+      background:var(--brand); color:white;
+      padding:10px 15px; font-weight:bold; font-size:1.1em;
+    }
+    .menu{list-style:none; margin:0; padding:0}
+    .menu li a{
+      display:flex; align-items:center; gap:8px;
+      padding:10px 15px; color:var(--ink);
+      text-decoration:none; border-bottom:1px solid #eee;
+    }
+    .menu li a::before{
+      content: '›'; color: var(--brand); font-weight: bold; font-size: 1.2em;
+    }
+    .menu li a:hover{background:#f3f4f6}
+    
+    /* Item ativo (opcional, pode ser ajustado) */
+    .menu li a[aria-current="page"]{
+      background:#e8f0fe; color:var(--brand); font-weight:600;
+    }
+    
+    /* Conteúdo Principal */
+    main.content{
+      padding:30px;
+    }
+    .breadcrumbs{font-size:14px; color:var(--muted); margin-bottom:6px}
+    h1{margin:.2rem 0 1.2rem; font-size:28px; color:var(--brand)}
+    h2{
+      margin:2.2rem 0 .6rem; font-size:22px;
+      border-bottom: 1px solid var(--border); padding-bottom: 5px;
+    }
+    h3{margin:1.2rem 0 .4rem; font-size:18px}
+    p{text-align:justify}
+    
+    /* Estilos específicos de conteúdo */
+    .note{
+      background:#f9fafb; border-left:4px solid var(--brand); padding:15px; border-radius:4px;
+      line-height:1.4; font-size: 15px;
+    }
+    .note strong{font-size:1.1em; display:block; margin-bottom:5px}
+    .units-list{padding-left:20px}
+    
+    @media (max-width: 960px){
+      .grid{grid-template-columns:1fr; box-shadow:none}
+      nav.side{order:2; border-right:none; border-top:1px solid var(--border)}
+      .page-header{margin:20px 0 10px; font-size:1.5em}
+    }
+  </style>
 </head>
 <body>
+<div class="wrap">
+  <div class="page-header">Secretaria de Estratégia e Projetos</div>
 
-<div class="page-title">Secretaria de Estratégia e Projetos (SEP)</div>
+  <div class="grid">
+    <nav class="side" aria-label="Navegação lateral">
+            <div class="menu-section">
+        <div class="menu-header">Secretaria de Estratégia e Projetos</div>
+        <ul class="menu">
+          <li><a href="#sep" aria-current="page">Secretaria de Estratégia e Projetos</a></li>
+          <li><a href="#atribuicoes-secretario">Atribuições do(a) Secretário(a) de Estratégia e Projetos</a></li>
+          <li><a href="#galeria">Galeria de Secretários(as) de Estratégia e Projetos</a></li>
+          <li><a href="#juizes-auxiliares">Juízes(as) Auxiliares da Presidência</a></li>
+        </ul>
+      </div>
+      
+            <div class="menu-section">
+        <div class="menu-header">Unidades vinculadas à SEP</div>
+        <ul class="menu">
+                    <li><a href="#gsep">Gabinete da Secretaria de Estratégia e Projetos - GSEP</a></li>
+                    <li><a href="https://www.cnj.jus.br/pesquisas-judiciarias/" target="_blank" rel="noopener">Departamento de Pesquisas Judiciárias – DPJ</a></li>
+          <li><a href="https://www.cnj.jus.br/gestao-estrategica-e-planejamento/" target="_blank" rel="noopener">Departamento de Gestão Estratégica – DGE</a></li>
+          <li><a href="https://www.cnj.jus.br/transparencia-cnj/orcamento/" target="_blank" rel="noopener">Departamento de Acompanhamento Orçamentário – DAO</a></li>
+          <li><a href="https://www.cnj.jus.br/gestao-da-justica/politicas-judiciarias-nacionais-programaticas/politica-nacional-de-gestao-da-inovacao/liods-cnj/" target="_blank" rel="noopener">LIODS CNJ</a></li>
+          <li><a href="https://www.cnj.jus.br/secretaria-especial/escritorio-corporativo-de-projetos-institucionais-ecp/" target="_blank" rel="noopener">Escritório Corporativo de Projetos Institucionais – ECP</a></li>
+          <li><a href="https://enaju.cnj.jus.br/" target="_blank" rel="noopener">Escola Nacional do Judiciário – ENAJU</a></li>
+        </ul>
+      </div>
+    </nav>
 
-<div class="container">
-    <div class="sidebar">
-        <div class="sidebar-menu">
-            [cite_start]<div class="menu-header">Secretaria de Estratégia e Projetos [cite: 9]</div>
-            <ul class="menu-list">
-                [cite_start]<li><a href="#">Secretaria de Estratégia e Projetos [cite: 10]</a></li>
-                [cite_start]<li><a href="#">Atribuições do(a) Secretário(a) de Estratégia e Projetos [cite: 11]</a></li>
-                [cite_start]<li><a href="#">Galeria de Secretários(as) de Estratégia e Projetos [cite: 12]</a></li>
-                [cite_start]<li><a href="#">Juízes(as) Auxiliares da Presidência [cite: 13]</a></li>
-            </ul>
-        </div>
+    <main id="conteudo" class="content">
+                        
+      <div class="breadcrumbs">SEP / Secretaria de Estratégia e Projetos</div>
+      <h1 id="sep">Secretaria de Estratégia e Projetos (SEP)</h1>
+      
+[cite_start]      <p>A **Secretaria de Estratégia e Projetos (SEP)** é a unidade do **Conselho Nacional de Justiça (CNJ)** responsável por planejar, coordenar e acompanhar a execução das políticas estratégicas do Poder Judiciário, promovendo a integração entre programas, projetos e iniciativas que materializam os objetivos do **Planejamento Estratégico Nacional do Judiciário**[cite: 26].</p>
 
-        <div class="sidebar-menu">
-            [cite_start]<div class="menu-header">Unidades vinculadas à SEP [cite: 15]</div>
-            <ul class="menu-list">
-                [cite_start]<li><a href="#">Gabinete da Secretaria de Estratégia e Projetos - GSEP [cite: 16]</a></li>
-                [cite_start]<li><a href="#">Departamento de Pesquisas Judiciárias – DPJ [cite: 17]</a></li>
-                [cite_start]<li><a href="#">Departamento de Gestão Estratégica – DGE [cite: 18]</a></li>
-                [cite_start]<li><a href="#">Departamento de Acompanhamento Orçamentário – DAO [cite: 19]</a></li>
-                [cite_start]<li><a href="#">LIODS CNJ [cite: 20]</a></li>
-                [cite_start]<li><a href="#">Escritório Corporativo de Projetos Institucionais – ECP [cite: 21]</a></li>
-                [cite_start]<li><a href="#">Escola Nacional do Judiciário – ENAJU [cite: 22]</a></li>
-            </ul>
-        </div>
-    </div>
+[cite_start]      <p>A SEP atua na formulação de estratégias e na gestão de portfólios institucionais, fomentando a governança, o monitoramento de resultados e a articulação com outras instituições necessária à execução das ações prioritárias do CNJ[cite: 27]. [cite_start]Suas atividades abrangem ainda o desenvolvimento de metodologias de gestão de projetos, inovação, sustentabilidade e transformação digital[cite: 28].</p>
 
-    <div class="content">
-        [cite_start]<h1>Secretaria de Estratégia e Projetos [cite: 25]</h1>
-        [cite_start]<p>A **Secretaria de Estratégia e Projetos (SEP)** é a unidade do **Conselho Nacional de Justiça (CNJ)** responsável por planejar, coordenar e acompanhar a execução das políticas estratégicas do Poder Judiciário, promovendo a integração entre programas, projetos e iniciativas que materializam os objetivos do Planejamento Estratégico Nacional do Judiciário[cite: 26].</p>
+      <h2>Estrutura Organizacional</h2>
+[cite_start]      <p>A **Secretaria de Estratégia e Projetos** está diretamente vinculada à **Presidência do CNJ**, conforme estabelecem o **Regimento Interno do Conselho Nacional de Justiça (Resolução CNJ nº 67/2009)** e suas alterações[cite: 30]. [cite_start]A estrutura atual da SEP foi definida pela **Portaria da Presidência do CNJ nº 326, de 29 de setembro de 2025**[cite: 31].</p>
+      
+[cite_start]      <p>A Secretaria coordena e supervisiona as seguintes unidades[cite: 32]:</p>
+      <ul class="units-list">
+[cite_start]        <li>Gabinete da Secretaria de Estratégia e Projetos (GSEP) [cite: 33]</li>
+[cite_start]        <li>Coordenadoria Administrativa e de Gestão Negocial de Sistemas da SEP (COAN) [cite: 34]</li>
+[cite_start]        <li>Coordenadoria de Gestão de Projetos e de Instrumentos de Cooperação da SEP (COPI) [cite: 35]</li>
+[cite_start]        <li>Escritório Corporativo de Projetos Institucionais (ECP) [cite: 36]</li>
+[cite_start]        <li>Departamento de Pesquisas Judiciárias (DPJ) [cite: 37]</li>
+[cite_start]        <li>Escola Nacional do Judiciário (ENAJU) [cite: 38]</li>
+[cite_start]        <li>Departamento de Gestão Estratégica (DGE) [cite: 39]</li>
+[cite_start]        <li>Departamento de Acompanhamento Orçamentário (DAO) [cite: 40]</li>
+      </ul>
 
-        [cite_start]<p>A SEP atua na formulação de estratégias e na gestão de portfólios institucionais, fomentando a governança, o monitoramento de resultados e a articulação com outras instituições necessária à execução das ações prioritárias do CNJ[cite: 27]. [cite_start]Suas atividades abrangem ainda o desenvolvimento de metodologias de gestão de projetos, inovação, sustentabilidade e transformação digital[cite: 28].</p>
+      <h2>Principais Competências</h2>
+[cite_start]      <p>Entre as principais atribuições da SEP, destacam-se[cite: 42]:</p>
+      <ul class="units-list">
+[cite_start]        <li>Coordenar o planejamento estratégico do Poder Judiciário e o monitoramento dos indicadores de desempenho [cite: 43]</li>
+[cite_start]        <li>Gerir o portfólio de projetos institucionais e programas estratégicos nacionais, como o *Justiça 4.0* e o *Programa Justiça Itinerante Cooperativa na Amazônia Legal* [cite: 44]</li>
+[cite_start]        <li>Apoiar a elaboração de relatórios e diagnósticos estratégicos voltados à eficiência e à inovação no sistema de justiça [cite: 45]</li>
+[cite_start]        <li>Fomentar a integração com tribunais e órgãos parceiros para a implementação das metas e políticas do CNJ [cite: 46]</li>
+      </ul>
 
-        [cite_start]<h2>Estrutura organizacional [cite: 29]</h2>
-        [cite_start]<p>A **Secretaria de Estratégia e Projetos** está diretamente vinculada à **Presidência do CNJ**, conforme estabelecem o Regimento Interno do Conselho Nacional de Justiça (Resolução CNJ nº 67/2009) e suas alterações[cite: 30]. [cite_start]A estrutura atual da SEP foi definida pela Portaria da Presidência do CNJ nº 326, de 29 de setembro de 2025, que detalhou a organização do Conselho[cite: 31].</p>
-        <p>A Secretaria coordena e supervisiona as seguintes unidades:</p>
-        <ul>
-            [cite_start]<li>Gabinete da Secretaria de Estratégia e Projetos (GSEP) [cite: 33]</li>
-            [cite_start]<li>Coordenadoria Administrativa e de Gestão Negocial de Sistemas da SEP (COAN) [cite: 34]</li>
-            [cite_start]<li>Coordenadoria de Gestão de Projetos e de Instrumentos de Cooperação da SEP (COPI) [cite: 35]</li>
-            [cite_start]<li>Escritório Corporativo de Projetos Institucionais (ECP) [cite: 36]</li>
-            [cite_start]<li>Departamento de Pesquisas Judiciárias (DPJ) [cite: 37]</li>
-            [cite_start]<li>Escola Nacional do Judiciário (ENAJU) [cite: 38]</li>
-            [cite_start]<li>Departamento de Gestão Estratégica (DGE) [cite: 39]</li>
-            [cite_start]<li>Departamento de Acompanhamento Orçamentário (DAO) [cite: 40]</li>
-        </ul>
-        
-        [cite_start]<h2>Principais competências [cite: 41]</h2>
-        <ul>
-            [cite_start]<li>Coordenar o planejamento estratégico do Poder Judiciário e o monitoramento dos indicadores de desempenho [cite: 43]</li>
-            [cite_start]<li>Gerir o portfólio de projetos institucionais e programas estratégicos nacionais, como o *Justiça 4.0*, o *Programa Justiça Itinerante Cooperativa na Amazônia Legal* e o *RenovaJud* [cite: 44]</li>
-            [cite_start]<li>Apoiar a elaboração de relatórios e diagnósticos estratégicos voltados à eficiência e à inovação no sistema de justiça [cite: 45]</li>
-            [cite_start]<li>Fomentar a integração com tribunais e órgãos parceiros para a implementação das metas e políticas do CNJ [cite: 46]</li>
-        </ul>
-    </div>
+
+      <h2 id="atribuicoes-secretario">Atribuições do(a) Secretário(a) de Estratégia e Projetos</h2>
+[cite_start]      <p>O cargo de Secretário(a) é responsável pela supervisão e coordenação das unidades integrantes da SEP, atuando em conformidade com as diretrizes da Presidência do CNJ[cite: 54].</p>
+[cite_start]      <p>Suas atribuições compreendem[cite: 56]:</p>
+      <ul class="units-list">
+[cite_start]        <li>Supervisionar as unidades vinculadas à SEP [cite: 57]</li>
+[cite_start]        <li>Assessorar a Presidência em matérias de estratégia institucional e planejamento [cite: 58]</li>
+[cite_start]        <li>Coordenar a execução das políticas e programas estratégicos [cite: 59]</li>
+[cite_start]        <li>Representar a Secretaria em comissões e fóruns [cite: 60]</li>
+[cite_start]        <li>Aprovar e validar atos administrativos e documentos técnicos no âmbito da secretaria [cite: 62]</li>
+[cite_start]        <li>**Exercer a substituição da Secretária-Geral do CNJ, quando designado** [cite: 61]</li>
+      </ul>
+
+
+      <h2 id="galeria">Galeria de Secretários(as) de Estratégia e Projetos</h2>
+[cite_start]      <p>A Secretaria foi criada inicialmente como "Secretaria Especial de Programas, Pesquisas e Gestão Estratégica (SEP)" pela **Emenda Regimental nº 6, de 30 de março de 2021** [cite: 70][cite_start], e teve sua denominação atualizada pela **Resolução CNJ nº 536, de 7 de dezembro de 2023**[cite: 71].</p>
+
+      <h3>Atual Secretário</h3>
+[cite_start]      <p><strong>Paulo Marcos de Farias</strong> – Juiz de Direito do Tribunal de Justiça do Estado de Santa Catarina [cite: 74]</p>
+      
+[cite_start]      <h3>Secretários(as) anteriores [cite: 76]</h3>
+      <ul class="units-list">
+        <li>Richard Pae Kim (2018-2020)</li>
+        <li>Marcus Lívio Gomes (2020-2022)</li>
+        <li>Ricardo Fioreze (2022-2023)</li>
+        <li>Frederico Montedonio Rego (2023-2024)</li>
+        <li>Gabriel da Silveira Matos (2024-2025)</li>
+      </ul>
+
+
+      <h2 id="juizes-auxiliares">Juízes(as) Auxiliares da Presidência</h2>
+[cite_start]      <p>Os Juízes(as) Auxiliares desempenham papel de apoio técnico e estratégico na SEP, contribuindo para a formulação e acompanhamento de políticas nacionais voltadas à governança, inovação e sustentabilidade do Poder Judiciário[cite: 85].</p>
+
+      <h3>Composição Atual em atuação na SEP</h3>
+      <ul class="units-list">
+[cite_start]        <li>Ana Lúcia Andrade Aguiar (Juíza Federal do TRF4) [cite: 89]</li>
+[cite_start]        <li>Daniel Avelar (Juiz de Direito do TJPR) [cite: 90]</li>
+[cite_start]        <li>Dorotheo Barbosa Neto (Juiz do Trabalho do TRT14) [cite: 91]</li>
+[cite_start]        <li>Gabriela Lenz de Lacerda (Juíza do Trabalho do TRT4) [cite: 92]</li>
+[cite_start]        <li>Gláucio Brittes de Araújo (Juiz de Direito do TJSP) [cite: 93]</li>
+[cite_start]        <li>Hugo Gomes Zaher (Juiz de Direito do TJPB) [cite: 94]</li>
+[cite_start]        <li>Jônatas dos Santos Andrade (Juiz do Trabalho do TRT8) [cite: 95]</li>
+[cite_start]        <li>José Gomes de Araújo Filho (Juiz de Direito do TJPA) [cite: 96]</li>
+[cite_start]        <li>Keity Mara Ferreira de Souza e Saboya (Juíza de Direito do TJRN) [cite: 97]</li>
+[cite_start]        <li>Lívia Cristina Marques Peres (Juíza Federal do TRF1) [cite: 98]</li>
+[cite_start]        <li>Luciana da Veiga Oliveira (Juíza Federal do TRF4) [cite: 99]</li>
+[cite_start]        <li>Maurício Cavallazi Póvoas (Juiz de Direito do TJSC) [cite: 100]</li>
+[cite_start]        <li>Suzana Massako Hirama Loreto de Oliveira (Desembargadora do TJPR) [cite: 101]</li>
+[cite_start]        <li>Viviane Brito Rebello (Juíza de Direito do TJMT) [cite: 102]</li>
+[cite_start]        <li>Wanessa Mendes de Araújo (Juíza do Trabalho do TRT10) [cite: 103]</li>
+      </ul>
+
+
+      <h2 id="gsep">Gabinete da Secretaria de Estratégia e Projetos (GSEP)</h2>
+[cite_start]      <p>O GSEP é responsável pela coordenação administrativa e pelo apoio técnico direto ao(à) Secretário(a), assegurando a integração entre as unidades e o alinhamento das ações com as diretrizes da Presidência[cite: 110].</p>
+      
+      <h3>Unidades Vinculadas ao Gabinete</h3>
+      <ul class="units-list">
+[cite_start]        <li>**Coordenadoria de Gestão de Projetos e de Instrumentos de Cooperação (COPI):** Gerencia o portfólio de projetos estratégicos e a celebração de instrumentos de cooperação técnica[cite: 114, 115].</li>
+[cite_start]        <li>**Coordenadoria Administrativa e de Gestão Negocial de Sistemas (COAN):** Responsável pela gestão administrativa e governança dos sistemas informatizados e soluções tecnológicas da SEP[cite: 122, 123].</li>
+[cite_start]        <li>**Núcleo do Laboratório de Inovação e Objetivos de Desenvolvimento Sustentável (LIODS/CNJ):** Fomenta a cultura de inovação e colaboração baseada nos ODS da Agenda 2030[cite: 130, 132].</li>
+      </ul>
+
+            <h2 id="dpj-ext">Departamento de Pesquisas Judiciárias — DPJ</h2>
+[cite_start]      <p>Para acessar a página completa do DPJ, clique no link do menu lateral ou acesse: <a href="https://www.cnj.jus.br/pesquisas-judiciarias/" target="_blank" rel="noopener">Pesquisas Judiciárias (CNJ)</a> [cite: 139]</p>
+
+      <h2 id="dge-ext">Departamento de Gestão Estratégica — DGE</h2>
+[cite_start]      <p>Para acessar a página completa do DGE, clique no link do menu lateral ou acesse: <a href="https://www.cnj.jus.br/gestao-estrategica-e-planejamento/" target="_blank" rel="noopener">Gestão Estratégica e Planejamento (CNJ)</a> [cite: 141]</p>
+
+      <h2 id="dao-ext">Departamento de Acompanhamento Orçamentário — DAO</h2>
+[cite_start]      <p>Para acessar a página de Orçamento, clique no link do menu lateral ou acesse: <a href="https://www.cnj.jus.br/transparencia-cnj/orcamento/" target="_blank" rel="noopener">Transparência / Orçamento (CNJ)</a> [cite: 143]</p>
+
+      <h2 id="liods-ext">LIODS CNJ</h2>
+[cite_start]      <p>Para acessar a página do LIODS, clique no link do menu lateral ou acesse: <a href="https://www.cnj.jus.br/gestao-da-justica/politicas-judiciarias-nacionais-programaticas/politica-nacional-de-gestao-da-inovacao/liods-cnj/" target="_blank" rel="noopener">Laboratório de Inovação e ODS (CNJ)</a> [cite: 145]</p>
+
+      <h2 id="ecp-ext">Escritório Corporativo de Projetos Institucionais — ECP</h2>
+[cite_start]      <p>Para acessar a página do ECP, clique no link do menu lateral ou acesse: <a href="https://www.cnj.jus.br/secretaria-especial/escritorio-corporativo-de-projetos-institucionais-ecp/" target="_blank" rel="noopener">Escritório Corporativo de Projetos (CNJ)</a> [cite: 147]</p>
+
+      <h2 id="enaju-ext">Escola Nacional do Judiciário — ENAJU</h2>
+[cite_start]      <p>Para acessar o portal da ENAJU, clique no link do menu lateral ou acesse: <a href="https://enaju.cnj.jus.br/" target="_blank" rel="noopener">Portal da ENAJU</a> [cite: 149]</p>
+      
+      
+            <h2>Canais de Contato</h2>
+[cite_start]      <p>Para atos e documentos oficiais, o protocolo deve ser realizado pelo **Protocolo Eletrônico do CNJ**[cite: 48].</p>
+[cite_start]      <p>Para informações gerais e atendimento institucional[cite: 50]:</p>
+      <div class="note">
+        <strong>Secretaria de Estratégia e Projetos – SEP</strong>
+        <div>Conselho Nacional de Justiça (CNJ)</div>
+        <div>SAF Sul, Quadra 2, Lotes 5/6 – Asa Sul</div>
+        <div>CEP 70070-600 – Brasília/DF</div>
+        <div>📞 +55 (61) 2326-5274 &nbsp; • &nbsp; 📧 <a href="mailto:sep@cnj.jus.br">sep@cnj.jus.br</a></div>
+      </div>
+
+      <footer>
+        *Protótipo HTML estático (documentação). Não representa a estrutura real em tempo de execução.*
+      </footer>
+    </main>
+  </div>
 </div>
 
+<script>
+  // Script para marcar o item ativo no menu ao clicar
+  document.querySelectorAll('nav.side a').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      // Remove a marcação de ativo de todos os itens
+      document.querySelectorAll('nav.side a[aria-current]').forEach(x=>x.removeAttribute('aria-current'));
+      
+      // Verifica se é um link interno (âncora) ou um link externo
+      if(a.getAttribute('href').startsWith('#')){
+        // Se for âncora, marca como ativo
+        a.setAttribute('aria-current','page');
+      } else {
+        // Se for link externo, não marca como ativo, apenas abre
+        // e permite que a página atual (SEP) continue marcada.
+      }
+    });
+  });
+</script>
 </body>
 </html>
