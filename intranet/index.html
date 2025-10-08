@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Intranet SEP — Secretaria de Estratégia e Projetos</title>
+  <style>
+    :root{
+      --bg: #f6f7fb;
+      --panel: #ffffff;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --brand: #0a6cf1;
+      --brand-ink: #0b4db8;
+      --focus: #1d4ed8;
+      --radius: 14px;
+      --shadow: 0 6px 20px rgba(0,0,0,.06);
+      --title-bg: #0a6cf1;
+      --title-fg: #ffffff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", "Liberation Sans", sans-serif;
+      color:var(--ink); background:var(--bg);
+      line-height:1.6;
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:focus, button:focus{outline:3px solid var(--focus); outline-offset:3px}
+    .wrap{max-width:1200px; margin:32px auto; padding:0 20px}
+    .grid{display:grid; gap:24px; grid-template-columns:320px 1fr}
+    header.app{
+      background:var(--panel); box-shadow:var(--shadow);
+      border-radius: var(--radius); padding:20px; margin-bottom:24px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap
+    }
+    .badge{display:inline-block; background:#e8f0fe; color:var(--brand-ink); padding:6px 10px; border-radius:999px; font-weight:600; font-size:14px}
+    .search{position:relative; flex:1 1 260px; max-width:520px}
+    .search input{width:100%; padding:12px 14px 12px 40px; border-radius:10px; border:1px solid var(--border)}
+    .search svg{position:absolute; left:12px; top:11px}
+
+    /* Lateral */
+    aside{display:flex; flex-direction:column; gap:14px}
+    .side-block{
+      background:var(--panel); border-radius: var(--radius);
+      box-shadow:var(--shadow); overflow:hidden
+    }
+    .side-title{
+      background:var(--title-bg); color:var(--title-fg);
+      padding:12px 14px; font-weight:700; letter-spacing:.2px
+    }
+    .menu{list-style:none; margin:0; padding:10px}
+    .menu li{margin:2px 0}
+    .menu a{
+      display:flex; align-items:center; gap:8px;
+      padding:10px 12px; border-radius:10px; color:var(--ink)
+    }
+    .menu a:hover{background:#f3f4f6}
+    .menu a[aria-current="page"]{background:#eef2ff; color:#3b82f6; font-weight:600}
+
+    /* Conteúdo */
+    main.content{
+      background:var(--panel); border-radius: var(--radius);
+      box-shadow:var(--shadow); padding:28px
+    }
+    .breadcrumbs{font-size:14px; color:var(--muted); margin-bottom:6px}
+    h1{margin:.2rem 0 1rem; font-size:28px}
+    h2{margin:1.2rem 0 .6rem; font-size:22px}
+    h3{margin:1rem 0 .4rem; font-size:18px}
+    p{margin:.5rem 0 1rem}
+    ul,ol{margin:.4rem 0 1rem 1.2rem}
+
+    /* Seções (SPA) */
+    .section{display:none}
+    .section[aria-hidden="false"]{display:block}
+
+    /* Nota/placeholder */
+    .note{background:#f9fafb; border-left:4px solid #cbd5e1; padding:10px 12px; border-radius:6px}
+
+    @media (max-width: 960px){
+      .grid{grid-template-columns:1fr}
+    }
+    /* Skip to content */
+    .skip-link{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
+    .skip-link:focus{position:static; width:auto; height:auto; margin:10px; background:#fff; padding:8px 12px; border-radius:8px; box-shadow:var(--shadow)}
+  </style>
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+<div class="wrap">
+  <header class="app" role="banner" aria-label="Cabeçalho da Intranet SEP">
+    <div>
+      <div class="badge">Intranet SEP</div>
+      <div style="font-weight:700; font-size:18px">Secretaria de Estratégia e Projetos — CNJ</div>
+      <div style="font-size:14px; color:var(--muted)">Conteúdos internos e contatos institucionais</div>
+    </div>
+    <form class="search" role="search" aria-label="Buscar nesta página" onsubmit="event.preventDefault()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="q" type="search" placeholder="Buscar (Ctrl+/)" aria-label="Buscar">
+    </form>
+  </header>
+
+  <div class="grid">
+    <aside aria-label="Navegação lateral">
+      <div class="side-block">
+        <div class="side-title">Intranet SEP</div>
+        <ul class="menu">
+          <li><a href="#sec-home"   data-target="sec-home"   aria-current="page">Secretaria de Estratégia e Projetos (Página inicial)</a></li>
+          <li><a href="#sec-gsep"   data-target="sec-gsep">Gabinete da Secretaria de Estratégia e Projetos (GSEP)</a></li>
+          <li><a href="#sec-copi"   data-target="sec-copi">Coordenadoria de Gestão de Projetos e de Instrumentos de Cooperação (COPI)</a></li>
+          <li><a href="#sec-coan"   data-target="sec-coan">Coordenadoria Administrativa e de Gestão Negocial de Sistemas (COAN)</a></li>
+          <li><a href="#sec-liods"  data-target="sec-liods">Núcleo do Laboratório de Inovação e Objetivos de Desenvolvimento Sustentável do Conselho Nacional de Justiça – LIODS</a></li>
+          <li><a href="#sec-dpj"    data-target="sec-dpj">Departamento de Pesquisas Judiciárias – DPJ</a></li>
+          <li><a href="#sec-dge"    data-target="sec-dge">Departamento de Gestão Estratégica – DGE</a></li>
+          <li><a href="#sec-dao"    data-target="sec-dao">Departamento de Acompanhamento Orçamentário – DAO</a></li>
+          <li><a href="#sec-ecp"    data-target="sec-ecp">Escritório Corporativo de Projetos Institucionais – ECP</a></li>
+          <li><a href="#sec-enaju"  data-target="sec-enaju">Escola Nacional do Judiciário – ENAJU</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main id="conteudo" class="content" role="main">
+      <div class="breadcrumbs">Intranet SEP / Secretaria de Estratégia e Projetos (Página inicial)</div>
+
+      <!-- Página inicial -->
+      <section id="sec-home" class="section" aria-hidden="false">
+        <h1>Secretaria de Estratégia e Projetos (Página inicial)</h1>
+        <p>A Secretaria de Estratégia e Projetos (SEP) é a unidade do Conselho Nacional de Justiça (CNJ) responsável por planejar, coordenar e acompanhar a execução das políticas estratégicas do Poder Judiciário, promovendo a integração entre programas, projetos e iniciativas que materializam os objetivos do Planejamento Estratégico Nacional do Judiciário.</p>
+        <p>A SEP atua na formulação de estratégias e na gestão de portfólios institucionais, fomentando a governança, o monitoramento de resultados e a articulação com outras instituições necessária à execução das ações prioritárias do CNJ. Suas atividades abrangem ainda o desenvolvimento de metodologias de gestão de projetos, inovação, sustentabilidade e transformação digital.</p>
+
+        <h2>Estrutura organizacional</h2>
+        <p>A Secretaria de Estratégia e Projetos está diretamente vinculada à Presidência do CNJ, conforme estabelecem o Regimento Interno do Conselho Nacional de Justiça (Resolução CNJ nº 67/2009) e suas alterações.</p>
+        <p>A estrutura atual da SEP foi definida pela Portaria da Presidência do CNJ nº 326, de 29 de setembro de 2025, que detalhou a organização do Conselho. A Secretaria coordena e supervisiona as seguintes unidades:</p>
+        <ul>
+          <li>Gabinete da Secretaria de Estratégia e Projetos (GSEP)</li>
+          <li>Coordenadoria Administrativa e de Gestão Negocial de Sistemas da SEP (COAN)</li>
+          <li>Coordenadoria de Gestão de Projetos e de Instrumentos de Cooperação da SEP (COPI)</li>
+          <li>Escritório Corporativo de Projetos Institucionais (ECP)</li>
+          <li>Departamento de Pesquisas Judiciárias (DPJ)</li>
+          <li>Escola Nacional do Judiciário (ENAJU)</li>
+          <li>Departamento de Gestão Estratégica (DGE)</li>
+          <li>Departamento de Acompanhamento Orçamentário (DAO)</li>
+        </ul>
+
+        <h2>Principais competências</h2>
+        <ul>
+          <li>Coordenar o planejamento estratégico do Poder Judiciário e o monitoramento dos indicadores de desempenho;</li>
+          <li>Gerir o portfólio de projetos institucionais e programas estratégicos nacionais, como o Justiça 4.0, o Programa Justiça Itinerante Cooperativa na Amazônia Legal e o RenovaJud;</li>
+          <li>Apoiar a elaboração de relatórios e diagnósticos estratégicos voltados à eficiência e à inovação no sistema de justiça;</li>
+          <li>Fomentar a integração com tribunais e órgãos parceiros para a implementação das metas e políticas do CNJ.</li>
+        </ul>
+
+        <h2>Contato</h2>
+        <p>Telefone: (61) 2326-5274<br>E-mail: <a href="mailto:sep@cnj.jus.br">sep@cnj.jus.br</a></p>
+      </section>
+
+      <!-- GSEP -->
+      <section id="sec-gsep" class="section" aria-hidden="true">
+        <h1>Gabinete da Secretaria de Estratégia e Projetos (GSEP)</h1>
+        <p>O Gabinete da Secretaria de Estratégia e Projetos (GSEP) é responsável pela coordenação administrativa e pelo apoio técnico direto ao(à) Secretário(a) de Estratégia e Projetos, assegurando a integração entre as unidades vinculadas à Secretaria e o alinhamento das ações com as diretrizes da Presidência do Conselho Nacional de Justiça (CNJ).</p>
+        <p>Sua estrutura e funcionamento estão definidos na Portaria da Presidência do CNJ nº 326, de 29 de setembro de 2025, que instituiu a nova Estrutura Orgânica do Conselho, consolidando a SEP como unidade estratégica de assessoramento e gestão de programas, projetos e políticas institucionais.</p>
+
+        <h2>Assessor(a) Chefe</h2>
+        <p>Thais Martins Bosh<br>
+           Telefone: (61) 2326-5032<br>
+           E-mail: <a href="mailto:thais.bosch@cnj.jus.br">thais.bosch@cnj.jus.br</a>
+        </p>
+      </section>
+
+      <!-- COPI -->
+      <section id="sec-copi" class="section" aria-hidden="true">
+        <h1>Coordenadoria de Gestão de Projetos e de Instrumentos de Cooperação (COPI)</h1>
+        <p>A COPI tem por finalidade planejar, coordenar e monitorar os projetos estratégicos sob a responsabilidade da SEP, promovendo metodologias de gestão e de acompanhamento de resultados.</p>
+        <h2>Atribuições</h2>
+        <ul>
+          <li>Elaborar e gerenciar o portfólio de projetos institucionais do CNJ;</li>
+          <li>Desenvolver e padronizar metodologias e ferramentas de gestão de projetos;</li>
+          <li>Apoiar tecnicamente a celebração, tramitação e execução de instrumentos de cooperação técnica, convênios e parcerias do CNJ;</li>
+          <li>Consolidar informações e relatórios sobre os projetos e instrumentos de cooperação em andamento.</li>
+        </ul>
+        <p>A COPI atua como ponto focal de integração entre o CNJ e os órgãos do Poder Judiciário, fortalecendo a governança e a transparência dos projetos estratégicos nacionais.</p>
+
+        <h2>Coordenador(a)</h2>
+        <p>Thiago Gontijo Vieira<br>
+           Telefone: (61) 2326-XXXX<br>
+           E-mail: <a href="mailto:thiago.gontijo@cnj.jus.br">thiago.gontijo@cnj.jus.br</a>
+        </p>
+      </section>
+
+      <!-- COAN -->
+      <section id="sec-coan" class="section" aria-hidden="true">
+        <h1>Coordenadoria Administrativa e de Gestão Negocial de Sistemas (COAN)</h1>
+        <p>A COAN é responsável pela gestão administrativa e pela governança dos sistemas informatizados e soluções tecnológicas utilizados nas ações estratégicas da SEP.</p>
+        <h2>Competências</h2>
+        <ul>
+          <li>Coordenar a implantação, atualização e integração de sistemas relacionados aos programas e projetos sob a gestão da SEP;</li>
+          <li>Acompanhar a execução administrativa e orçamentária das iniciativas da Secretaria;</li>
+          <li>Assegurar a conformidade dos processos com as políticas de segurança da informação, integridade e transformação digital do CNJ;</li>
+          <li>Propor aperfeiçoamentos nos fluxos de trabalho e processos internos, de modo a garantir eficiência e rastreabilidade nas ações da Secretaria.</li>
+        </ul>
+        <p>A COAN exerce papel essencial na gestão negocial e operacional dos sistemas e plataformas associados aos programas estruturantes conduzidos pela SEP.</p>
+
+        <h2>Coordenador(a)</h2>
+        <p>Angela Maria dos Santos<br>
+           Telefone: (61) 2326-4581<br>
+           E-mail: <a href="mailto:angela.santos@cnj.jus.br">angela.santos@cnj.jus.br</a>
+        </p>
+      </section>
+
+      <!-- LIODS -->
+      <section id="sec-liods" class="section" aria-hidden="true">
+        <h1>Núcleo do Laboratório de Inovação e Objetivos de Desenvolvimento Sustentável do Conselho Nacional de Justiça – LIODS</h1>
+        <p>O LIODS/CNJ, consolidado pela Resolução CNJ nº 395/2021 e suas atualizações, é o laboratório institucional de inovação e sustentabilidade do Poder Judiciário.</p>
+        <p>Vinculado ao Gabinete da SEP, o núcleo tem como objetivo fomentar a cultura de inovação, colaboração e aprendizado contínuo, com base nos Objetivos de Desenvolvimento Sustentável (ODS) da Agenda 2030 da ONU.</p>
+        <p><a href="https://www.cnj.jus.br/gestao-da-justica/politicas-judiciarias-nacionais-programaticas/politica-nacional-de-gestao-da-inovacao/liods-cnj/" target="_blank" rel="noopener">Saiba mais sobre o LIODS/CNJ</a></p>
+
+        <h2>Chefe do Núcleo</h2>
+        <p>Elaine Cristina Cestari<br>
+           Telefone: (61) 2326-XXXX<br>
+           E-mail: <a href="mailto:elaine.cestari@cnj.jus.br">elaine.cestari@cnj.jus.br</a>
+        </p>
+      </section>
+
+      <!-- DPJ -->
+      <section id="sec-dpj" class="section" aria-hidden="true">
+        <h1>Departamento de Pesquisas Judiciárias – DPJ</h1>
+        <p class="note">Pedir para a unidade rever o conteúdo no padrão das outras páginas.</p>
+      </section>
+
+      <!-- DGE -->
+      <section id="sec-dge" class="section" aria-hidden="true">
+        <h1>Departamento de Gestão Estratégica – DGE</h1>
+        <p class="note">Pedir para a unidade rever o conteúdo no padrão das outras páginas.</p>
+      </section>
+
+      <!-- DAO -->
+      <section id="sec-dao" class="section" aria-hidden="true">
+        <h1>Departamento de Acompanhamento Orçamentário – DAO</h1>
+        <p class="note">Pedir para a unidade rever o conteúdo no padrão das outras páginas.</p>
+      </section>
+
+      <!-- ECP -->
+      <section id="sec-ecp" class="section" aria-hidden="true">
+        <h1>Escritório Corporativo de Projetos Institucionais – ECP</h1>
+        <p class="note">Pedir para a unidade rever o conteúdo no padrão das outras páginas.</p>
+      </section>
+
+      <!-- ENAJU -->
+      <section id="sec-enaju" class="section" aria-hidden="true">
+        <h1>Escola Nacional do Judiciário – ENAJU</h1>
+        <p class="note">Pedir para a unidade rever o conteúdo no padrão das outras páginas.</p>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+  // Acessibilidade: atalho de busca Ctrl+/ (ou Cmd+/)
+  document.addEventListener('keydown', (e)=>{
+    if((e.ctrlKey || e.metaKey) && e.key === '/'){
+      const q = document.getElementById('q'); if(q){ q.focus(); q.select(); e.preventDefault(); }
+    }
+  });
+
+  // SPA simples: mostrar apenas a seção clicada e atualizar breadcrumb e estado ativo
+  function showSection(id){
+    document.querySelectorAll('.section').forEach(sec => {
+      sec.setAttribute('aria-hidden', String(sec.id !== id));
+    });
+    const link = document.querySelector(`.menu a[data-target="${id}"]`);
+    document.querySelectorAll('.menu a[aria-current]').forEach(x=>x.removeAttribute('aria-current'));
+    if(link){ link.setAttribute('aria-current','page'); }
+    const bc = document.querySelector('.breadcrumbs');
+    if(link && bc){ bc.textContent = 'Intranet SEP / ' + link.textContent; }
+    const h1 = document.querySelector('#'+id+' h1');
+    if(h1){ h1.setAttribute('tabindex','-1'); h1.focus({preventScroll:false}); }
+    history.replaceState(null, '', '#'+id);
+  }
+
+  // Clique no menu
+  document.querySelectorAll('.menu a[data-target]').forEach(a=>{
+    a.addEventListener('click', (ev)=>{
+      ev.preventDefault();
+      const id = a.getAttribute('data-target');
+      showSection(id);
+    });
+  });
+
+  // Carregar seção conforme hash
+  window.addEventListener('load', ()=>{
+    const hash = location.hash.replace('#','');
+    if(hash && document.getElementById(hash)){
+      showSection(hash);
+    }
+  });
+</script>
+</body>
+</html>
