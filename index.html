@@ -88,6 +88,54 @@
     }
     .skip-link{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
     .skip-link:focus{position:static; width:auto; height:auto; margin:10px; background:#fff; padding:8px 12px; border-radius:8px; box-shadow:var(--shadow)}
+	
+	   /* Galeria */
+    .current-secretary{
+      background:#f9fafb;
+      border:1px solid var(--accent);
+      border-left:5px solid #94a3b8;
+      border-radius:12px;
+      padding:16px;
+      display:grid;
+      grid-template-columns: 140px 1fr;
+      gap:16px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+    .current-secretary .photo{
+      width:140px; height:140px; border-radius:12px; overflow:hidden; border:1px solid var(--border);
+      box-shadow:0 6px 14px rgba(0,0,0,.06);
+      background:#e5e7eb;
+    }
+    .current-secretary img{width:100%; height:100%; object-fit:cover}
+    .current-secretary .meta{font-size:14px; color:var(--muted)}
+
+    .people-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:14px;
+    }
+    .person-card{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      text-align:center;
+      background:#fff;
+    }
+    .person-card figure{
+      margin:0 0 10px 0;
+      width:100%; aspect-ratio: 4/5;
+      border-radius:10px; overflow:hidden; border:1px solid var(--border); background:#e5e7eb;
+      box-shadow:0 6px 12px rgba(0,0,0,.05);
+    }
+    .person-card img{width:100%; height:100%; object-fit:cover}
+    .person-name{font-weight:700; margin:6px 0 2px}
+    .person-meta{font-size:14px; color:var(--muted)}
+
+    .note{background:#f9fafb; border-left:4px solid #cbd5e1; padding:10px 12px; border-radius:6px; margin-top:16px}
+    @media (max-width: 960px){ .grid{grid-template-columns:1fr} .current-secretary{grid-template-columns:1fr; text-align:center} }
+    .skip-link{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
+    .skip-link:focus{position:static; width:auto; height:auto; margin:10px; background:#fff; padding:8px 12px; border-radius:8px; box-shadow:var(--shadow)}
   </style>
 </head>
 <body>
@@ -178,27 +226,54 @@
       </section>
 
       <!-- Galeria -->
-      <section id="sec-galeria" class="section" aria-hidden="true">
-        <h1>Galeria de Secretários(as) de Estratégia e Projetos</h1>
-        <p>A Secretaria Especial de Programas, Pesquisas e Gestão Estratégica (SEP) foi criada pela Emenda Regimental nº 6, de 30 de março de 2021, que alterou o Regimento Interno do Conselho Nacional de Justiça (Resolução CNJ nº 67/2009) para incluir a nova unidade na estrutura da Presidência do CNJ.</p>
-        <p>Posteriormente, a Resolução CNJ nº 536, de 7 de dezembro de 2023 atualizou a denominação da Secretaria para "Secretaria de Estratégia e Projetos (SEP)".</p>
-        <p>Em 29 de setembro de 2025, a Portaria da Presidência do CNJ nº 326 detalhou a Estrutura Orgânica do Conselho Nacional de Justiça, especificando as unidades vinculadas à SEP sob sua nova denominação.</p>
-        <h2>Atual Secretário de Estratégia e Projetos</h2>
-        <p><strong>Paulo Marcos de Farias</strong><br>Juiz de Direito do Tribunal de Justiça do Estado de Santa Catarina</p>
-        <h2>Secretários(as) anteriores</h2>
-        <table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse; border:1px solid var(--border)">
-          <thead>
-            <tr><th>Nome</th><th>Órgão de Origem</th><th>Período de Gestão</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Richard Pae Kim</td><td>–</td><td>2018–2020</td></tr>
-            <tr><td>Marcus Lívio Gomes</td><td>–</td><td>2020–2022</td></tr>
-            <tr><td>Ricardo Fioreze</td><td>–</td><td>2022–2023</td></tr>
-            <tr><td>Frederico Montedonio Rego</td><td>–</td><td>2023–2024</td></tr>
-            <tr><td>Gabriel da Silveira Matos</td><td>–</td><td>2024–2025</td></tr>
-          </tbody>
-        </table>
-      </section>
+<section id="sec-galeria" class="section" aria-hidden="false">
+  <h1>Galeria de Secretários(as) de Estratégia e Projetos</h1>
+  <p>A Secretaria Especial de Programas, Pesquisas e Gestão Estratégica (SEP) foi criada pela Emenda Regimental nº 6, de 30 de março de 2021, alterando o Regimento Interno do CNJ (Resolução nº 67/2009). Em 2023, a Resolução CNJ nº 536 atualizou a denominação para “Secretaria de Estratégia e Projetos (SEP)”. Em 2025, a Portaria da Presidência nº 326 detalhou a estrutura orgânica do CNJ.</p>
+
+  <h2>Atual Secretário</h2>
+  <article class="current-secretary" role="region" aria-label="Atual Secretário">
+    <div class="photo">
+      <img src="./assets/secretarios/paulo-marcos-de-farias.svg" alt="Foto de Paulo Marcos de Farias">
+    </div>
+    <div>
+      <div style="font-size:20px; font-weight:800">Paulo Marcos de Farias</div>
+      <div class="meta">Juiz de Direito do Tribunal de Justiça de Santa Catarina</div>
+      <p style="margin-top:10px">Secretário de Estratégia e Projetos do Conselho Nacional de Justiça.</p>
+    </div>
+  </article>
+
+  <h2>Secretários(as) anteriores</h2>
+  <div class="people-grid" role="list">
+    <div class="person-card" role="listitem">
+      <figure><img src="./assets/secretarios/richard-pae-kim.svg" alt="Foto de Richard Pae Kim"></figure>
+      <div class="person-name">Richard Pae Kim</div>
+      <div class="person-meta">Período: 2018–2020</div>
+    </div>
+    <div class="person-card" role="listitem">
+      <figure><img src="./assets/secretarios/marcus-livio-gomes.svg" alt="Foto de Marcus Lívio Gomes"></figure>
+      <div class="person-name">Marcus Lívio Gomes</div>
+      <div class="person-meta">Período: 2020–2022</div>
+    </div>
+    <div class="person-card" role="listitem">
+      <figure><img src="./assets/secretarios/ricardo-fioreze.svg" alt="Foto de Ricardo Fioreze"></figure>
+      <div class="person-name">Ricardo Fioreze</div>
+      <div class="person-meta">Período: 2022–2023</div>
+    </div>
+    <div class="person-card" role="listitem">
+      <figure><img src="./assets/secretarios/frederico-montedonio-rego.svg" alt="Foto de Frederico Montedonio Rego"></figure>
+      <div class="person-name">Frederico Montedonio Rego</div>
+      <div class="person-meta">Período: 2023–2024</div>
+    </div>
+    <div class="person-card" role="listitem">
+      <figure><img src="./assets/secretarios/gabriel-da-silveira-matos.svg" alt="Foto de Gabriel da Silveira Matos"></figure>
+      <div class="person-name">Gabriel da Silveira Matos</div>
+      <div class="person-meta">Período: 2024–2025</div>
+    </div>
+  </div>
+
+  <div class="note">Substitua as imagens SVG por fotos oficiais (400×500 px, proporção 4:5). Mantenha nomes e períodos conforme registros institucionais.</div>
+</section>
+
 
       <!-- Juízes(as) Auxiliares -->
       <section id="sec-juizes" class="section" aria-hidden="true">
