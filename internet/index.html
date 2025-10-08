@@ -365,42 +365,53 @@
   // Atalho de busca Ctrl+/ (ou Cmd+/)
   document.addEventListener('keydown', (e)=>{
     if((e.ctrlKey || e.metaKey) && e.key === '/'){
-      const q = document.getElementById('q'); q.focus(); q.select(); e.preventDefault();
+      const q = document.getElementById('q'); if(q){ q.focus(); q.select(); e.preventDefault(); }
     }
   });
 
-  // SPA simples: mostrar apenas a seção escolhida
+  // SPA: mostrar apenas a seção escolhida + atualizar breadcrumb e menu ativo
   function showSection(id){
+    // alterna visibilidade
     document.querySelectorAll('.section').forEach(sec => {
       sec.setAttribute('aria-hidden', String(sec.id !== id));
     });
+
+    // atualiza breadcrumb
     const bc = document.querySelector('.breadcrumbs');
     const link = document.querySelector(`a[data-target="${id}"]`);
-    bc.textContent = 'SEP / ' + (link ? link.textContent : 'Seção');
+    if (bc){ bc.textContent = 'SEP / ' + (link ? link.textContent : 'Seção'); }
+
+    // atualiza estado ativo do menu
+    document.querySelectorAll('.menu a[aria-current]').forEach(x=>x.removeAttribute('aria-current'));
+    if (link){ link.setAttribute('aria-current','page'); }
+
+    // acessibilidade: foco no título
+    const h1 = document.querySelector('#'+id+' h1');
+    if(h1){ h1.setAttribute('tabindex','-1'); h1.focus({preventScroll:false}); }
+
+    // atualiza hash sem recarregar
+    history.replaceState(null, '', '#'+id);
   }
 
-  // Menu ativo + navegação
+  // Clique nos itens de menu
   document.querySelectorAll('.menu a[data-target]').forEach(a=>{
     a.addEventListener('click', (ev)=>{
       ev.preventDefault();
-      const id = a.getAttribute('data-target');
-      document.querySelectorAll('.menu a[aria-current]').forEach(x=>x.removeAttribute('aria-current'));
-      a.setAttribute('aria-current','page');
-      showSection(id);
-      const h1 = document.querySelector('#'+id+' h1');
-      if(h1){ h1.setAttribute('tabindex','-1'); h1.focus({preventScroll:false}); }
-      history.replaceState(null, '', '#'+id);
+      showSection(a.getAttribute('data-target'));
     });
   });
 
-  // Abrir seção a partir da âncora (hash)
+  // Ao carregar: se houver hash válido, usa; senão, força #sec-sep
   window.addEventListener('load', ()=>{
     const hash = location.hash.replace('#','');
-    if(hash && document.getElementById(hash)){
-      const link = document.querySelector(`a[data-target="${hash}"]`);
-      if(link){ link.click(); } else { showSection(hash); }
+    if (hash && document.getElementById(hash)){
+      showSection(hash);
+    } else {
+      showSection('sec-sep'); // padrão ao abrir a página
     }
   });
 </script>
+
 </body>
 </html>
+
