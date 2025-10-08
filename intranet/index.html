@@ -59,6 +59,34 @@
     .menu a:hover{background:#f3f4f6}
     .menu a[aria-current="page"]{background:#eef2ff; color:#3b82f6; font-weight:600}
 
+    /* Submenu (Gabinete -> COPI/COAN/LIODS) */
+    details.menu-group{
+      border-radius:10px;
+    }
+    details.menu-group[open] > summary{
+      background:#f3f4f6;
+    }
+    summary{
+      list-style:none;
+      padding:10px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      color:var(--ink);
+      display:flex; align-items:center; gap:8px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .chev{transition:transform .2s ease}
+    details[open] .chev{transform:rotate(90deg)}
+    .submenu{
+      list-style:none; margin:6px 0 8px 0; padding:0 0 0 12px;
+      border-left:2px dashed #e5e7eb; margin-left:10px;
+    }
+    .submenu a{
+      padding:8px 10px; border-radius:8px; display:block;
+    }
+    .submenu a:hover{background:#f8fafc}
+    .submenu a[aria-current="page"]{background:#eef2ff; color:#3b82f6; font-weight:600}
+
     /* Conteúdo */
     main.content{
       background:var(--panel); border-radius: var(--radius);
@@ -106,16 +134,28 @@
       <div class="side-block">
         <div class="side-title">Intranet SEP</div>
         <ul class="menu">
-          <li><a href="#sec-home"   data-target="sec-home"   aria-current="page">Secretaria de Estratégia e Projetos (Página inicial)</a></li>
-          <li><a href="#sec-gsep"   data-target="sec-gsep">Gabinete da Secretaria de Estratégia e Projetos (GSEP)</a></li>
-          <li><a href="#sec-copi"   data-target="sec-copi">Coordenadoria de Gestão de Projetos e de Instrumentos de Cooperação (COPI)</a></li>
-          <li><a href="#sec-coan"   data-target="sec-coan">Coordenadoria Administrativa e de Gestão Negocial de Sistemas (COAN)</a></li>
-          <li><a href="#sec-liods"  data-target="sec-liods">Núcleo do Laboratório de Inovação e Objetivos de Desenvolvimento Sustentável do Conselho Nacional de Justiça – LIODS</a></li>
-          <li><a href="#sec-dpj"    data-target="sec-dpj">Departamento de Pesquisas Judiciárias – DPJ</a></li>
-          <li><a href="#sec-dge"    data-target="sec-dge">Departamento de Gestão Estratégica – DGE</a></li>
-          <li><a href="#sec-dao"    data-target="sec-dao">Departamento de Acompanhamento Orçamentário – DAO</a></li>
-          <li><a href="#sec-ecp"    data-target="sec-ecp">Escritório Corporativo de Projetos Institucionais – ECP</a></li>
-          <li><a href="#sec-enaju"  data-target="sec-enaju">Escola Nacional do Judiciário – ENAJU</a></li>
+          <li><a href="#sec-home" data-target="sec-home" aria-current="page">Secretaria de Estratégia e Projetos (Página inicial)</a></li>
+
+          <!-- GSEP com submenu -->
+          <li>
+            <details class="menu-group" id="grp-gsep">
+              <summary id="sum-gsep" role="button" aria-controls="submenu-gsep" aria-expanded="false">
+                <span class="chev" aria-hidden="true">▶</span>
+                Gabinete da Secretaria de Estratégia e Projetos (GSEP)
+              </summary>
+              <ul id="submenu-gsep" class="submenu" role="group" aria-labelledby="sum-gsep">
+                <li><a href="#sec-copi" data-target="sec-copi">Coordenadoria de Gestão de Projetos e de Instrumentos de Cooperação (COPI)</a></li>
+                <li><a href="#sec-coan" data-target="sec-coan">Coordenadoria Administrativa e de Gestão Negocial de Sistemas (COAN)</a></li>
+                <li><a href="#sec-liods" data-target="sec-liods">Núcleo do Laboratório de Inovação e Objetivos de Desenvolvimento Sustentável do Conselho Nacional de Justiça – LIODS</a></li>
+              </ul>
+            </details>
+          </li>
+
+          <li><a href="#sec-dpj" data-target="sec-dpj">Departamento de Pesquisas Judiciárias – DPJ</a></li>
+          <li><a href="#sec-dge" data-target="sec-dge">Departamento de Gestão Estratégica – DGE</a></li>
+          <li><a href="#sec-dao" data-target="sec-dao">Departamento de Acompanhamento Orçamentário – DAO</a></li>
+          <li><a href="#sec-ecp" data-target="sec-ecp">Escritório Corporativo de Projetos Institucionais – ECP</a></li>
+          <li><a href="#sec-enaju" data-target="sec-enaju">Escola Nacional do Judiciário – ENAJU</a></li>
         </ul>
       </div>
     </aside>
@@ -155,19 +195,6 @@
         <p>Telefone: (61) 2326-5274<br>E-mail: <a href="mailto:sep@cnj.jus.br">sep@cnj.jus.br</a></p>
       </section>
 
-      <!-- GSEP -->
-      <section id="sec-gsep" class="section" aria-hidden="true">
-        <h1>Gabinete da Secretaria de Estratégia e Projetos (GSEP)</h1>
-        <p>O Gabinete da Secretaria de Estratégia e Projetos (GSEP) é responsável pela coordenação administrativa e pelo apoio técnico direto ao(à) Secretário(a) de Estratégia e Projetos, assegurando a integração entre as unidades vinculadas à Secretaria e o alinhamento das ações com as diretrizes da Presidência do Conselho Nacional de Justiça (CNJ).</p>
-        <p>Sua estrutura e funcionamento estão definidos na Portaria da Presidência do CNJ nº 326, de 29 de setembro de 2025, que instituiu a nova Estrutura Orgânica do Conselho, consolidando a SEP como unidade estratégica de assessoramento e gestão de programas, projetos e políticas institucionais.</p>
-
-        <h2>Assessor(a) Chefe</h2>
-        <p>Thais Martins Bosh<br>
-           Telefone: (61) 2326-5032<br>
-           E-mail: <a href="mailto:thais.bosch@cnj.jus.br">thais.bosch@cnj.jus.br</a>
-        </p>
-      </section>
-
       <!-- COPI -->
       <section id="sec-copi" class="section" aria-hidden="true">
         <h1>Coordenadoria de Gestão de Projetos e de Instrumentos de Cooperação (COPI)</h1>
@@ -180,12 +207,6 @@
           <li>Consolidar informações e relatórios sobre os projetos e instrumentos de cooperação em andamento.</li>
         </ul>
         <p>A COPI atua como ponto focal de integração entre o CNJ e os órgãos do Poder Judiciário, fortalecendo a governança e a transparência dos projetos estratégicos nacionais.</p>
-
-        <h2>Coordenador(a)</h2>
-        <p>Thiago Gontijo Vieira<br>
-           Telefone: (61) 2326-XXXX<br>
-           E-mail: <a href="mailto:thiago.gontijo@cnj.jus.br">thiago.gontijo@cnj.jus.br</a>
-        </p>
       </section>
 
       <!-- COAN -->
@@ -200,12 +221,6 @@
           <li>Propor aperfeiçoamentos nos fluxos de trabalho e processos internos, de modo a garantir eficiência e rastreabilidade nas ações da Secretaria.</li>
         </ul>
         <p>A COAN exerce papel essencial na gestão negocial e operacional dos sistemas e plataformas associados aos programas estruturantes conduzidos pela SEP.</p>
-
-        <h2>Coordenador(a)</h2>
-        <p>Angela Maria dos Santos<br>
-           Telefone: (61) 2326-4581<br>
-           E-mail: <a href="mailto:angela.santos@cnj.jus.br">angela.santos@cnj.jus.br</a>
-        </p>
       </section>
 
       <!-- LIODS -->
@@ -214,12 +229,6 @@
         <p>O LIODS/CNJ, consolidado pela Resolução CNJ nº 395/2021 e suas atualizações, é o laboratório institucional de inovação e sustentabilidade do Poder Judiciário.</p>
         <p>Vinculado ao Gabinete da SEP, o núcleo tem como objetivo fomentar a cultura de inovação, colaboração e aprendizado contínuo, com base nos Objetivos de Desenvolvimento Sustentável (ODS) da Agenda 2030 da ONU.</p>
         <p><a href="https://www.cnj.jus.br/gestao-da-justica/politicas-judiciarias-nacionais-programaticas/politica-nacional-de-gestao-da-inovacao/liods-cnj/" target="_blank" rel="noopener">Saiba mais sobre o LIODS/CNJ</a></p>
-
-        <h2>Chefe do Núcleo</h2>
-        <p>Elaine Cristina Cestari<br>
-           Telefone: (61) 2326-XXXX<br>
-           E-mail: <a href="mailto:elaine.cestari@cnj.jus.br">elaine.cestari@cnj.jus.br</a>
-        </p>
       </section>
 
       <!-- DPJ -->
@@ -263,22 +272,41 @@
     }
   });
 
-  // SPA simples: mostrar apenas a seção clicada e atualizar breadcrumb e estado ativo
   function showSection(id){
+    // Alterna seções
     document.querySelectorAll('.section').forEach(sec => {
       sec.setAttribute('aria-hidden', String(sec.id !== id));
     });
-    const link = document.querySelector(`.menu a[data-target="${id}"]`);
+
+    // Estado ativo em todos os links
     document.querySelectorAll('.menu a[aria-current]').forEach(x=>x.removeAttribute('aria-current'));
+    const link = document.querySelector(`.menu a[data-target="${id}"]`);
     if(link){ link.setAttribute('aria-current','page'); }
+
+    // Se a seção é COPI/COAN/LIODS, abre o <details> do GSEP
+    const gsep = document.getElementById('grp-gsep');
+    if(['sec-copi','sec-coan','sec-liods'].includes(id)){
+      if(gsep && !gsep.open){ gsep.open = true; }
+      // marca visualmente o summary como “ativo” quando algum filho estiver ativo
+      document.getElementById('sum-gsep').style.background = '#f3f4f6';
+    } else {
+      // se outro item foi selecionado, remover destaque do summary (mantendo aberto apenas se o usuário abriu)
+      document.getElementById('sum-gsep').style.background = '';
+    }
+
+    // Breadcrumb
     const bc = document.querySelector('.breadcrumbs');
     if(link && bc){ bc.textContent = 'Intranet SEP / ' + link.textContent; }
+
+    // Foco no h1 da seção (acessibilidade)
     const h1 = document.querySelector('#'+id+' h1');
     if(h1){ h1.setAttribute('tabindex','-1'); h1.focus({preventScroll:false}); }
+
+    // Atualiza hash
     history.replaceState(null, '', '#'+id);
   }
 
-  // Clique no menu
+  // Clique nos itens de menu (nível 1 e submenu)
   document.querySelectorAll('.menu a[data-target]').forEach(a=>{
     a.addEventListener('click', (ev)=>{
       ev.preventDefault();
@@ -287,12 +315,18 @@
     });
   });
 
-  // Carregar seção conforme hash
+  // Sincroniza aria-expanded no summary
+  const sumGsep = document.getElementById('sum-gsep');
+  if(sumGsep){
+    const grp = document.getElementById('grp-gsep');
+    const sync = ()=> sumGsep.setAttribute('aria-expanded', grp.open ? 'true' : 'false');
+    grp.addEventListener('toggle', sync); sync();
+  }
+
+  // Ao carregar, abre a seção do hash (e expande GSEP se necessário)
   window.addEventListener('load', ()=>{
-    const hash = location.hash.replace('#','');
-    if(hash && document.getElementById(hash)){
-      showSection(hash);
-    }
+    const hash = location.hash.replace('#','') || 'sec-home';
+    showSection(hash);
   });
 </script>
 </body>
