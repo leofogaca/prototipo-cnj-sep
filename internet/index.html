@@ -1,10 +1,9 @@
-
 <!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portal SEP — Protótipo v3</title>
+  <title>Portal SEP — Protótipo v3 (atualizado)</title>
   <style>
     :root{
       --bg: #f6f7fb;
@@ -19,6 +18,7 @@
       --shadow: 0 6px 20px rgba(0,0,0,.06);
       --title-bg: #0a6cf1;
       --title-fg: #ffffff;
+      --accent: #cbd5e1;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -88,8 +88,8 @@
     }
     .skip-link{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
     .skip-link:focus{position:static; width:auto; height:auto; margin:10px; background:#fff; padding:8px 12px; border-radius:8px; box-shadow:var(--shadow)}
-	
-	   /* Galeria */
+
+    /* ===== Galeria ===== */
     .current-secretary{
       background:#f9fafb;
       border:1px solid var(--accent);
@@ -97,18 +97,25 @@
       border-radius:12px;
       padding:16px;
       display:grid;
-      grid-template-columns: 140px 1fr;
+      /* igualar “peso visual” da foto do atual com a galeria */
+      grid-template-columns: 220px 1fr;
       gap:16px;
-      align-items:center;
+      align-items:flex-start;
       margin-bottom:18px;
     }
     .current-secretary .photo{
-      width:140px; height:140px; border-radius:12px; overflow:hidden; border:1px solid var(--border);
+      width:100%;
+      max-width:220px;
+      aspect-ratio:4/5;       /* mesma proporção dos cartões da galeria */
+      border-radius:10px;
+      overflow:hidden;
+      border:1px solid var(--border);
       box-shadow:0 6px 14px rgba(0,0,0,.06);
       background:#e5e7eb;
     }
     .current-secretary img{width:100%; height:100%; object-fit:cover}
     .current-secretary .meta{font-size:14px; color:var(--muted)}
+    .current-secretary .bio{font-size:14px; margin-top:8px; color:var(--ink)}
 
     .people-grid{
       display:grid;
@@ -132,10 +139,30 @@
     .person-name{font-weight:700; margin:6px 0 2px}
     .person-meta{font-size:14px; color:var(--muted)}
 
-    .note{background:#f9fafb; border-left:4px solid #cbd5e1; padding:10px 12px; border-radius:6px; margin-top:16px}
-    @media (max-width: 960px){ .grid{grid-template-columns:1fr} .current-secretary{grid-template-columns:1fr; text-align:center} }
-    .skip-link{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
-    .skip-link:focus{position:static; width:auto; height:auto; margin:10px; background:#fff; padding:8px 12px; border-radius:8px; box-shadow:var(--shadow)}
+    /* ===== Juízes(as) com mini bio ===== */
+    .judge-list{
+      display:block;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap:14px;
+      margin-top:10px;
+    }
+    .judge-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px;
+      box-shadow:0 6px 12px rgba(0,0,0,.04);
+	  margin-bottom:12px;   /* espaço entre as linhas */
+    }
+    .judge-card .name{font-weight:800}
+    .judge-card .meta{font-size:14px; color:var(--muted); margin-bottom:8px}
+    .judge-card .bio{font-size:14px; line-height:1.55}
+
+    /* responsivo */
+    @media (max-width: 960px){
+      .current-secretary{grid-template-columns:1fr; text-align:center}
+      .current-secretary .photo{margin:0 auto}
+    }
   </style>
 </head>
 <body>
@@ -146,7 +173,6 @@
       <div class="badge">Protótipo</div>
       <div style="font-weight:700; font-size:18px">Secretaria de Estratégia e Projetos — SEP</div>
     </div>
-   
   </header>
 
   <div class="grid">
@@ -226,58 +252,59 @@
       </section>
 
       <!-- Galeria -->
-<section id="sec-galeria" class="section" aria-hidden="false">
-  <h1>Galeria de Secretários(as) de Estratégia e Projetos</h1>
-	<p>A Secretaria Especial de Programas, Pesquisas e Gestão Estratégica (SEP) foi criada pela Emenda Regimental nº 6, de 30 de março de 2021, que alterou o Regimento Interno do Conselho Nacional de Justiça (Resolução CNJ nº 67/2009) para incluir a nova unidade na estrutura da Presidência do CNJ.</p>
-	<p>Posteriormente, a Resolução CNJ nº 536, de 7 de dezembro de 2023 atualizou a denominação da Secretaria para "Secretaria de Estratégia e Projetos (SEP)".</p>
-	<p>Em 29 de setembro de 2025, a Portaria da Presidência do CNJ nº 326 detalhou a Estrutura Orgânica do Conselho Nacional de Justiça, especificando as unidades vinculadas à SEP sob sua nova denominação.</p>
+      <section id="sec-galeria" class="section" aria-hidden="true">
+        <h1>Galeria de Secretários(as) de Estratégia e Projetos</h1>
+        <p>A Secretaria Especial de Programas, Pesquisas e Gestão Estratégica (SEP) foi criada pela Emenda Regimental nº 6, de 30 de março de 2021, que alterou o Regimento Interno do Conselho Nacional de Justiça (Resolução CNJ nº 67/2009) para incluir a nova unidade na estrutura da Presidência do CNJ.</p>
+        <p>Posteriormente, a Resolução CNJ nº 536, de 7 de dezembro de 2023 atualizou a denominação da Secretaria para "Secretaria de Estratégia e Projetos (SEP)".</p>
+        <p>Em 29 de setembro de 2025, a Portaria da Presidência do CNJ nº 326 detalhou a Estrutura Orgânica do Conselho Nacional de Justiça, especificando as unidades vinculadas à SEP sob sua nova denominação.</p>
 
-<h2>Atual Secretário</h2>
-<article class="current-secretary" role="region" aria-label="Atual Secretário">
-  <div class="photo">
-    <img src="./assets/secretarios/paulo-marcos-de-farias.svg" alt="Foto de Paulo Marcos de Farias">
-  </div>
-  <div>
-    <div style="font-size:20px; font-weight:800">Paulo Marcos de Farias</div>
-    <div class="meta">Juiz de Direito do Tribunal de Justiça de Santa Catarina</div>
-    <p style="margin-top:10px">
-      Secretário de Estratégia e Projetos do Conselho Nacional de Justiça.<br>
-      <span style="font-size:14px; color:#6b7280;">Início da gestão: <strong>29 de setembro de 2025</strong>.</span>
-    </p>
-  </div>
-</article>
+        <h2>Atual Secretário</h2>
+        <article class="current-secretary" role="region" aria-label="Atual Secretário">
+          <div class="photo">
+            <img src="./assets/secretarios/paulo-marcos-de-farias.svg" alt="Foto de Paulo Marcos de Farias">
+          </div>
+          <div>
+            <div style="font-size:20px; font-weight:800">Paulo Marcos de Farias</div>
+            <div class="meta">Juiz de Direito do Tribunal de Justiça de Santa Catarina</div>
+            <p style="margin-top:10px">
+              Secretário de Estratégia e Projetos do Conselho Nacional de Justiça.<br>
+              <span style="font-size:14px; color:#6b7280;">Início da gestão: <strong>29 de setembro de 2025</strong>.</span>
+            </p>
+            <p class="bio">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.
+            </p>
+          </div>
+        </article>
 
-  <h2>Secretários(as) anteriores</h2>
-  <div class="people-grid" role="list">
-    <div class="person-card" role="listitem">
-      <figure><img src="./assets/secretarios/richard-pae-kim.svg" alt="Foto de Richard Pae Kim"></figure>
-      <div class="person-name">Richard Pae Kim</div>
-      <div class="person-meta">Período: 2018–2020</div>
-    </div>
-    <div class="person-card" role="listitem">
-      <figure><img src="./assets/secretarios/marcus-livio-gomes.svg" alt="Foto de Marcus Lívio Gomes"></figure>
-      <div class="person-name">Marcus Lívio Gomes</div>
-      <div class="person-meta">Período: 2020–2022</div>
-    </div>
-    <div class="person-card" role="listitem">
-      <figure><img src="./assets/secretarios/ricardo-fioreze.svg" alt="Foto de Ricardo Fioreze"></figure>
-      <div class="person-name">Ricardo Fioreze</div>
-      <div class="person-meta">Período: 2022–2023</div>
-    </div>
-    <div class="person-card" role="listitem">
-      <figure><img src="./assets/secretarios/frederico-montedonio-rego.svg" alt="Foto de Frederico Montedonio Rego"></figure>
-      <div class="person-name">Frederico Montedonio Rego</div>
-      <div class="person-meta">Período: 2023–2024</div>
-    </div>
-    <div class="person-card" role="listitem">
-      <figure><img src="./assets/secretarios/gabriel-da-silveira-matos.svg" alt="Foto de Gabriel da Silveira Matos"></figure>
-      <div class="person-name">Gabriel da Silveira Matos</div>
-      <div class="person-meta">Período: 2024–2025</div>
-    </div>
-  </div>
- 
-</section>
-
+        <h2>Secretários(as) anteriores</h2>
+        <div class="people-grid" role="list">
+          <div class="person-card" role="listitem">
+            <figure><img src="./assets/secretarios/richard-pae-kim.svg" alt="Foto de Richard Pae Kim"></figure>
+            <div class="person-name">Richard Pae Kim</div>
+            <div class="person-meta">Período: 2018–2020</div>
+          </div>
+          <div class="person-card" role="listitem">
+            <figure><img src="./assets/secretarios/marcus-livio-gomes.svg" alt="Foto de Marcus Lívio Gomes"></figure>
+            <div class="person-name">Marcus Lívio Gomes</div>
+            <div class="person-meta">Período: 2020–2022</div>
+          </div>
+          <div class="person-card" role="listitem">
+            <figure><img src="./assets/secretarios/ricardo-fioreze.svg" alt="Foto de Ricardo Fioreze"></figure>
+            <div class="person-name">Ricardo Fioreze</div>
+            <div class="person-meta">Período: 2022–2023</div>
+          </div>
+          <div class="person-card" role="listitem">
+            <figure><img src="./assets/secretarios/frederico-montedonio-rego.svg" alt="Foto de Frederico Montedonio Rego"></figure>
+            <div class="person-name">Frederico Montedonio Rego</div>
+            <div class="person-meta">Período: 2023–2024</div>
+          </div>
+          <div class="person-card" role="listitem">
+            <figure><img src="./assets/secretarios/gabriel-da-silveira-matos.svg" alt="Foto de Gabriel da Silveira Matos"></figure>
+            <div class="person-name">Gabriel da Silveira Matos</div>
+            <div class="person-meta">Período: 2024–2025</div>
+          </div>
+        </div>
+      </section>
 
       <!-- Juízes(as) Auxiliares -->
       <section id="sec-juizes" class="section" aria-hidden="true">
@@ -285,31 +312,106 @@
         <p>Os Juízes(as) Auxiliares da Presidência do Conselho Nacional de Justiça (CNJ) desempenham papel relevante de apoio técnico e estratégico nas diversas secretarias vinculadas à Presidência.</p>
         <p>No âmbito da Secretaria de Estratégia e Projetos (SEP), esses magistrados contribuem para a formulação, execução e acompanhamento de programas e políticas nacionais voltados à governança, à inovação, à sustentabilidade e à transformação digital do Poder Judiciário.</p>
         <p>Sua designação ocorre por ato da Presidência do CNJ, conforme previsão do Regimento Interno do Conselho Nacional de Justiça e das portarias que estruturam e organizam as secretarias do órgão.</p>
+
         <h2>Composição atual</h2>
-        <ul>
-          <li>Ana Lúcia Andrade Aguiar – Juíza Federal do Tribunal Regional Federal da 4ª Região</li>
-          <li>Daniel Avelar – Juiz de Direito do Tribunal de Justiça do Estado do Paraná</li>
-          <li>Dorotheo Barbosa Neto – Juiz do Trabalho do Tribunal Regional do Trabalho da 14ª Região</li>
-          <li>Gabriela Lenz de Lacerda – Juíza do Trabalho do Tribunal Regional do Trabalho da 4ª Região</li>
-          <li>Gláucio Brittes de Araújo – Juiz de Direito do Tribunal de Justiça do Estado de São Paulo</li>
-          <li>Hugo Gomes Zaher – Juiz de Direito do Tribunal de Justiça do Estado da Paraíba</li>
-          <li>Jônatas dos Santos Andrade – Juiz do Trabalho do Tribunal Regional do Trabalho da 8ª Região</li>
-          <li>José Gomes de Araújo Filho – Juiz de Direito do Tribunal de Justiça do Estado do Pará</li>
-          <li>Keity Mara Ferreira de Souza e Saboya – Juíza de Direito do Tribunal de Justiça do Estado do Rio Grande do Norte</li>
-          <li>Lívia Cristina Marques Peres – Juíza Federal do Tribunal Regional Federal da 1ª Região</li>
-          <li>Luciana da Veiga Oliveira – Juíza Federal do Tribunal Regional Federal da 4ª Região</li>
-          <li>Maurício Cavallazi Póvoas – Juiz de Direito do Tribunal de Justiça do Estado de Santa Catarina</li>
-          <li>Suzana Massako Hirama Loreto de Oliveira – Desembargadora do Tribunal de Justiça do Estado do Paraná</li>
-          <li>Viviane Brito Rebello – Juíza de Direito do Tribunal de Justiça do Estado de Mato Grosso</li>
-          <li>Wanessa Mendes de Araújo – Juíza do Trabalho do Tribunal Regional do Trabalho da 10ª Região</li>
-        </ul>
+        <div class="judge-list" role="list">
+          <article class="judge-card" role="listitem">
+            <div class="name">Ana Lúcia Andrade Aguiar</div>
+            <div class="meta">Juíza Federal — Tribunal Regional Federal da 4ª Região</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">Daniel Avelar</div>
+            <div class="meta">Juiz de Direito — Tribunal de Justiça do Estado do Paraná</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">Dorotheo Barbosa Neto</div>
+            <div class="meta">Juiz do Trabalho — Tribunal Regional do Trabalho da 14ª Região</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">Gabriela Lenz de Lacerda</div>
+            <div class="meta">Juíza do Trabalho — Tribunal Regional do Trabalho da 4ª Região</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">Gláucio Brittes de Araújo</div>
+            <div class="meta">Juiz de Direito — Tribunal de Justiça do Estado de São Paulo</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">Hugo Gomes Zaher</div>
+            <div class="meta">Juiz de Direito — Tribunal de Justiça do Estado da Paraíba</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">Jônatas dos Santos Andrade</div>
+            <div class="meta">Juiz do Trabalho — Tribunal Regional do Trabalho da 8ª Região</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">José Gomes de Araújo Filho</div>
+            <div class="meta">Juiz de Direito — Tribunal de Justiça do Estado do Pará</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">Keity Mara Ferreira de Souza e Saboya</div>
+            <div class="meta">Juíza de Direito — Tribunal de Justiça do Estado do Rio Grande do Norte</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">Lívia Cristina Marques Peres</div>
+            <div class="meta">Juíza Federal — Tribunal Regional Federal da 1ª Região</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">Luciana da Veiga Oliveira</div>
+            <div class="meta">Juíza Federal — Tribunal Regional Federal da 4ª Região</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">Maurício Cavallazi Póvoas</div>
+            <div class="meta">Juiz de Direito — Tribunal de Justiça do Estado de Santa Catarina</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">Suzana Massako Hirama Loreto de Oliveira</div>
+            <div class="meta">Desembargadora — Tribunal de Justiça do Estado do Paraná</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">Viviane Brito Rebello</div>
+            <div class="meta">Juíza de Direito — Tribunal de Justiça do Estado de Mato Grosso</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+
+          <article class="judge-card" role="listitem">
+            <div class="name">Wanessa Mendes de Araújo</div>
+            <div class="meta">Juíza do Trabalho — Tribunal Regional do Trabalho da 10ª Região</div>
+            <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis, arcu at elementum vulputate, augue erat faucibus ipsum, vitae mollis libero velit a neque. Suspendisse potenti. Praesent vel sem bibendum, congue mauris sed, gravida elit. Pellentesque dapibus, sem et aliquet feugiat, justo arcu dictum mi, non sollicitudin odio lacus vitae augue. Cras luctus, risus quis iaculis fringilla, sapien quam vulputate erat, vitae lacinia nisl lacus ac lorem. Maecenas eget luctus mi. Sed at ultrices magna. Phasellus sodales, sapien at interdum aliquet, eros odio convallis leo, a pretium lacus nisi in tellus. Curabitur id sem nec magna consectetur rhoncus. Aenean vitae libero eget nunc tincidunt gravida. Donec at urna in justo posuere luctus. Vivamus sagittis, nisl in cursus euismod, libero mauris tempor purus, ut suscipit velit nisl non orci. Duis vehicula pretium arcu, sit amet posuere lorem porttitor in.</p>
+          </article>
+        </div>
       </section>
 
       <!-- Contato -->
       <section id="sec-contato" class="section" aria-hidden="true">
         <h1>Canais de Contato</h1>
         <p>Para atos e documentos oficiais, o protocolo deve ser realizado pelo Protocolo Eletrônico do CNJ.</p>
-		<p><a class="ext" href="https://www.cnj.jus.br/formularios/protocolo-eletronico" target="_blank" rel="noopener">Acesse o Protocolo Eletrônico clicando aqui.</a></p>
+        <p><a class="ext" href="https://www.cnj.jus.br/formularios/protocolo-eletronico" target="_blank" rel="noopener">Acesse o Protocolo Eletrônico clicando aqui.</a></p>
         <p>Para informações gerais e atendimento institucional:</p>
         <div class="note">
           <div><strong>Secretaria de Estratégia e Projetos – SEP</strong></div>
@@ -325,6 +427,7 @@
         <h1>Gabinete da Secretaria de Estratégia e Projetos (GSEP)</h1>
         <p>O Gabinete da Secretaria de Estratégia e Projetos (GSEP) é responsável pela coordenação administrativa e pelo apoio técnico direto ao(à) Secretário(a) de Estratégia e Projetos, assegurando a integração entre as unidades vinculadas à Secretaria e o alinhamento das ações com as diretrizes da Presidência do Conselho Nacional de Justiça (CNJ).</p>
         <p>Sua estrutura e funcionamento estão definidos na Portaria da Presidência do CNJ nº 326, de 29 de setembro de 2025, que instituiu a nova Estrutura Orgânica do Conselho, consolidando a SEP como unidade estratégica de assessoramento e gestão de programas, projetos e políticas institucionais.</p>
+
         <h2>Outras unidades da SEP</h2>
         <h3>Coordenadoria de Gestão de Projetos e de Instrumentos de Cooperação (COPI)</h3>
         <p>A COPI tem por finalidade planejar, coordenar e monitorar os projetos estratégicos sob a responsabilidade da SEP, promovendo metodologias de gestão e de acompanhamento de resultados.</p>
@@ -414,4 +517,3 @@
 
 </body>
 </html>
-
